@@ -208,12 +208,14 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         SurfaceHolder holder;
         boolean gameRunning=false;
         Canvas c;
-        Paint p;
+        Paint p1,p2;
 
         public DrawGame(Context context) {
             super(context);
             holder=getHolder();
-            p=new Paint(Color.BLACK);
+            p1=new Paint(Color.BLACK);
+            p1.setStyle(Paint.Style.STROKE);
+            p2=new Paint(Color.RED);
 
 
 
@@ -233,14 +235,22 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     }
 
                     c=holder.lockCanvas();
-                    c.drawARGB(255,255,255,255);
+                    c.drawARGB(255, 255, 255, 255);
                     c.drawBitmap(ball, ballx - (ball.getWidth() / 2), bally - (ball.getHeight() / 2), null);
                     c.drawBitmap(player1, p1x - (player1.getWidth() / 2), p1y - (player1.getHeight() / 2), null);
                     c.drawBitmap(player2, p2x - (player2.getWidth() / 2), p2y - (player2.getHeight() / 2), null);
-                    c.drawLine(0, c.getHeight() / 2, c.getWidth(), c.getHeight() / 2, p);
-                    p.setColor(Color.BLACK);
-                    p.setTextSize(40);
-                    c.drawText(String.valueOf(score1)+" - "+String.valueOf(score2),c.getWidth()/2-50,c.getHeight()/2,p);
+
+                    p1.setStrokeWidth(5);
+                    c.drawLine(0, c.getHeight() / 2, c.getWidth(), c.getHeight() / 2, p1);
+                    c.drawCircle(c.getWidth() / 2, c.getHeight() / 2, 150, p1);
+
+                    p2.setTextSize(50);
+                    p2.setColor(Color.RED);
+                    c.drawText(String.valueOf(score1) + " - " + String.valueOf(score2), c.getWidth() / 2 - 50, c.getHeight() / 2-5, p2);
+                    p2.setStrokeWidth(10);
+                    c.drawLine(0, 0, c.getWidth(), 0, p2);
+                    c.drawLine(0,c.getHeight(),c.getWidth(),c.getHeight(),p2);
+
                     ballx+=vx;
                     bally+=vy;
                     setVelocity();
